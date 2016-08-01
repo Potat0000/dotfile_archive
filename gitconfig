@@ -1,0 +1,8 @@
+[user]
+	name = Gyj1109 - Linux
+	email = gyj1109@126.com
+[alias]
+	c = commit
+	p = push
+	ls = status
+	d = pull
