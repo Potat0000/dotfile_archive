@@ -18,7 +18,7 @@ Plugin 'scrooloose/nerdtree'              " 目录树
 Plugin 'pbrisbin/vim-mkdir'               " 新建文件时自动创建不存在的文件夹
 Plugin 'sjl/gundo.vim'                    " 撤销树
 Plugin 'easymotion/vim-easymotion'        " 快速移动
-Plugin 'godlygeek/tabular'
+Plugin 'ervandew/supertab'
 Plugin 'plasticboy/vim-markdown'          " Markdown高亮
 
 call vundle#end()
@@ -63,6 +63,11 @@ set laststatus=2
 set guifont=Inconsolata\ for\ Powerline:h14
 set noshowmode
 """"""""""""""" PowerLine
+
+""""""""""""""" SuperTab
+let g:SuperTabRetainCompletionType = 2
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+""""""""""""""" SuperTab
 
 """"""""""""""" 分割区移动
 nnoremap <C-J> <C-W><C-J>
@@ -178,7 +183,7 @@ set cursorline                                                           " 高�
 set wildmenu                                                             " 显示补全列表
 set wildmode=full                                                        " 显示所有补全项
 set hlsearch                                                             " 高亮查找项
-autocmd FileType python set omnifunc=pythoncomplete#Complete             " Python自动补全
+set omnifunc=syntaxcomplete#Complete                                     " 自动补全
 nnoremap <Leader>u :GundoToggle<CR>                                      " 快速打开撤销树
 let mapleader='\'                                                        " 设置Leader键
 """"""""""""""" 单行配置项
