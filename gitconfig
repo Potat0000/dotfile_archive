@@ -2,8 +2,10 @@
 	name = Gyj1109 - Linux
 	email = gyj1109@126.com
 [alias]
+    a = add
 	c = commit
 	p = push --force
-	ls = status
 	d = pull
-	lg = log --since='1 Month Ago' --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ls = status
+	lg = log --since='2 Month Ago' --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    r = rebase
