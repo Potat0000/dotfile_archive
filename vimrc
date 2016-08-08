@@ -11,7 +11,7 @@ Plugin 'vim-scripts/indentpython.vim'     " Python自动缩进
 "Plugin 'nvie/vim-flake8'                 " PEP8代码风格检查
 Plugin 'SirVer/ultisnips'                 " 代码块
 Plugin 'honza/vim-snippets'               " 代码块
-Plugin 'tomasr/molokai'                   " 配色方案
+Plugin 'altercation/vim-colors-solarized' " 配色方案
 Plugin 'kien/ctrlp.vim'                   " Ctrl-P 超级搜索
 Plugin 'klen/python-mode'                 " Python插件
 Plugin 'scrooloose/nerdtree'              " 目录树
@@ -93,7 +93,7 @@ set fileformat=unix
 
 """"""""""""""" 配色方案
 set background=dark
-colorscheme molokai
+colorscheme solarized
 """"""""""""""" 配色方案
 
 """"""""""""""" Python虚拟环境(Virtualenv)支持
