@@ -155,10 +155,12 @@ noremap <Right> <Nop>
 "* 
 "* Markdown文件进入插入模式时自动打开中文输入法
 "* 所有文件退出插入模式时自动关闭中文输入法
+"* Git Commit描述填写界面自动进入插入模式并切换为中文输入法
 "* 
 if has('unix')
-	autocmd! InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
-	autocmd! InsertEnter *.md,COMMIT_EDITMSG	if system('fcitx-remote') != 0 | call system('fcitx-remote -o') | endif
+	autocmd InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+	autocmd InsertEnter *.md,COMMIT_EDITMSG	if system('fcitx-remote') != 0 | call system('fcitx-remote -o') | endif
+	autocmd VimEnter COMMIT_EDITMSG	startinsert
 endif
 """"""""""""""" 输入法自动切换
 
