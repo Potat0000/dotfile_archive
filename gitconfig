@@ -9,3 +9,5 @@
 	ls = status
 	lg = log --since='2 Month Ago' --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     r = rebase
+[help]
+	autocorrect = 25

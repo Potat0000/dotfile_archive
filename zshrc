@@ -1,6 +1,10 @@
 # oh-my-zsh安装目录
 export ZSH=/home/gyj1109/.oh-my-zsh
 
+# 自动刷新新安装的程序
+zstyle ':completion:*' rehash true
+setopt no_nomatch
+
 # 主题
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DEFAULT_USER=gyj1109
