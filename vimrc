@@ -174,6 +174,23 @@ let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 """"""""""""""" UltiSnips
 
+""""""""""""""" 字数统计
+"* 
+"* 请提前运行 pip install zwc 进行安装
+"* 出处：https://github.com/physacco/zwc
+"* 
+function! Zwc() range
+  " send selected lines to system command *zwc* and print the output
+  let select_beg_line = getpos("'<")[1]
+  let select_end_line = getpos("'>")[1]
+  let lines = getline(select_beg_line, select_end_line)
+  let input = join(lines, "\n") . "\n"
+  let output = system("zwc", input)
+  echom substitute(output, '\v(^\_s+)|(\_s+$)', '', 'g')
+endfunction
+vnoremap <F3> :call Zwc()<CR>
+""""""""""""""" 字数统计
+
 """"""""""""""" 单行配置项
 set listchars=tab:>-,trail:-,extends:#,nbsp:`
 set encoding=utf-8                                                       " 支持UTF-8编码
@@ -188,4 +205,5 @@ set hlsearch                                                             " 高�
 set omnifunc=syntaxcomplete#Complete                                     " 自动补全
 nnoremap <Leader>u :GundoToggle<CR>                                      " 快速打开撤销树
 let mapleader='\'                                                        " 设置Leader键
+set smartcase                                                            " 智能大小写忽略
 """"""""""""""" 单行配置项
