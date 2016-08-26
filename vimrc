@@ -7,30 +7,49 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'vim-scripts/indentpython.vim'     " Python自动缩进
-"Plugin 'scrooloose/syntastic'            " 语法检查、高亮
-"Plugin 'nvie/vim-flake8'                 " PEP8代码风格检查
 Plugin 'SirVer/ultisnips'                 " 代码块
 Plugin 'honza/vim-snippets'               " 代码块
 Plugin 'altercation/vim-colors-solarized' " 配色方案
 Plugin 'kien/ctrlp.vim'                   " Ctrl-P 超级搜索
-Plugin 'klen/python-mode'                 " Python插件
 Plugin 'scrooloose/nerdtree'              " 目录树
 Plugin 'pbrisbin/vim-mkdir'               " 新建文件时自动创建不存在的文件夹
 Plugin 'sjl/gundo.vim'                    " 撤销树
 Plugin 'easymotion/vim-easymotion'        " 快速移动
-Plugin 'ervandew/supertab'
 Plugin 'plasticboy/vim-markdown'          " Markdown高亮
+Plugin 'nathanaelkane/vim-indent-guides'  " 缩进指示器
+Plugin 'tpope/vim-abolish'                " 增强版替换
+Plugin 'tpope/vim-surround'               " 括号操作
+Plugin 'bronson/vim-trailing-whitespace'  " 行尾空格高亮、快速去除
+
+"Plugin 'nvie/vim-flake8'                 " PEP8代码风格检查，与YouCompleteMe功能重复
+"Plugin 'klen/python-mode'                " Python插件，与YouCompleteMe功能重复
+"Plugin 'ervandew/supertab'               " 拓展Tab键的功能，与YouCompleteMe冲突
+
+Plugin 'Valloric/YouCompleteMe'           " 神级补全插件
+"* 
+"* 详细安装方法
+"* 
+"* 先在Vim中执行BundleInstall安装插件部分，然后执行以下命令：
+"* sudo zypper in llvm-clang-devel python-devel cmake
+"* bash ~/.vim/bundle/YouCompleteMe/install.sh --clang-completer --system-libclang
+"* sed -i s/echom\ \"Forcing\ compilation,\ this\ will\ block\ Vim\ until\ done\.\"/\"\&/g ~/.vim/bundle/YouCompleteMe/autoload/youcompleteme.vim
+"* 
+"* 使用BundleUpdate (或BundleInstall!) 升级插件前**可能**需要使用以下命令还原，因为有产生git冲突的风险。更新完成后使用上方sed命令重新打上补丁：
+"* sed -i s/\"echom\ \"Forcing\ compilation,\ this\ will\ block\ Vim\ until\ done\.\"/echom\ \"Forcing\ compilation,\ this\ will\ block\ Vim\ until\ done\.\"/g ~/.vim/bundle/YouCompleteMe/autoload/youcompleteme.vim
+"* 
+"* 参考：https://petitming.github.io/%E6%8A%98%E9%A8%B0/2015/12/27/YCM/
+"* 
 
 call vundle#end()
 filetype plugin indent on
 
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
+"* 
+"* 命令帮助
+"* :BundleList       - 列出所有插件
+"* :BundleInstall    - 安装插件，使用 :BundleInstall! 或 :BundleUpdate 升级插件
+"* :BundleSearch foo - 查找插件foo，使用 :BundleSearch! 刷新本地缓存
+"* :BundleClean      - 删除已安装但已经从vimrc中删除的插件，使用 :BundleClean! 跳过确认直接删除
+"* 
 
 """"""""""""""" 永久撤销记录
 set undodir=~/.vim/undodir
@@ -65,8 +84,8 @@ set noshowmode
 """"""""""""""" PowerLine
 
 """"""""""""""" SuperTab
-let g:SuperTabRetainCompletionType = 2
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+"let g:SuperTabRetainCompletionType = 2
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 """"""""""""""" SuperTab
 
 """"""""""""""" 分割区移动
@@ -134,40 +153,51 @@ nmap <F5> :NERDTreeToggle<cr>
 """"""""""""""" NerdTree
 
 """"""""""""""" PyMode
-let g:pymode_lint_todo_symbol = '⚠'
-let g:pymode_lint_comment_symbol = '☯'
-let g:pymode_lint_visual_symbol = 'RR'
-let g:pymode_lint_error_symbol = '✘'
-let g:pymode_lint_info_symbol = 'ⅰ'
-let g:pymode_lint_pyflakes_symbol = 'FF'
-
-let g:pymode_options_max_line_length = 255
+"let g:pymode_lint_todo_symbol = '⚠'
+"let g:pymode_lint_comment_symbol = '☯'
+"let g:pymode_lint_visual_symbol = 'RR'
+"let g:pymode_lint_error_symbol = '✘'
+"let g:pymode_lint_info_symbol = 'ⅰ'
+"let g:pymode_lint_pyflakes_symbol = 'FF'
+"let g:pymode_options_max_line_length = 255
 """"""""""""""" PyMode
 
-""""""""""""""" 屏蔽方向键
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-""""""""""""""" 屏蔽方向键
+""""""""""""""" Indent Guides
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+""""""""""""""" Indent Guides
 
-""""""""""""""" 输入法自动切换
+""""""""""""""" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.dotfile/ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_error_symbol = '✘'
+let g:ycm_warning_symbol = '⚠'
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+noremap <F3> :YcmForceCompileAndDiagnostics<CR>
+noremap <F4> :YcmDiags<CR>
+let g:ycm_key_list_select_completion = ['<c-j>', '<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
+""""""""""""""" YouCompleteMe
+
+""""""""""""""" AutoCmd
 "* 
 "* Markdown文件进入插入模式时自动打开中文输入法
-"* 所有文件退出插入模式时自动关闭中文输入法
+"* 所有文件退出插入模式时自动关闭中文输入法并保存
 "* Git Commit描述填写界面自动进入插入模式并切换为中文输入法
 "* 
 if has('unix')
-	autocmd InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+	autocmd InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif | write
 	autocmd InsertEnter *.md,COMMIT_EDITMSG	if system('fcitx-remote') != 0 | call system('fcitx-remote -o') | endif
 	autocmd VimEnter COMMIT_EDITMSG	startinsert
 endif
-""""""""""""""" 输入法自动切换
+""""""""""""""" AutoCmd
 
 """"""""""""""" UltiSnips
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/UltiSnips'
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsListSnippets = '<C-Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
@@ -191,14 +221,185 @@ endfunction
 vnoremap <F3> :call Zwc()<CR>
 """"""""""""""" 字数统计
 
+""""""""""""""" 防误操作
+nnoremap ： :call system('fcitx-remote -c')<CR>:
+command! Wq wq
+command! Wqa wqa
+""""""""""""""" 防误操作
+
+""""""""""""""" 在符号两侧自动加入空格
+"* 
+"* 输入符号后在右边输入空格，左边也会添加空格
+"* 增加符号请在下方[]中模仿添加
+"* 暂未解决三个及以上符号连在一起的情况
+"* 出处：http://forum.ubuntu.org.cn/viewtopic.php?t=394843
+"* 
+
+let g:space1 = ['+', '-', '*', '/', '%', '^', '<', '>', '=']
+let g:space2 = [":=", "==", "!=", "<<", ">>", ">=", "<=", "+=", "-=", "/*=" ,"/=", "&&", "||"]
+
+inoremap <space> <c-r>=SmartSpace()<CR>
+function! SmartSpace()
+    ""取上一行光标附近词a:char
+    for key in g:space2
+        echo key
+    endfor
+    let a:char = ''
+    let a:prechar=' '
+    let a:lastchar=''
+    for key in range(-8, 6)
+        let a:char = a:char.getline(line('.')-1)[col('.') + key]
+    endfor
+    ""判断a:char是否含有单个符号
+    for key in g:space1
+        if -1 != match(a:char, '\t'.key.' ')
+            let a:prechar = '   '
+            let a:lastchar = ' '
+        elseif -1 != match(a:char, ' '.key.' ')
+            let a:prechar = ' '
+            let a:lastchar = ''
+        endif
+    endfor
+    ""判断a:char是否含有两个连续符号
+    for key in g:space2
+        if -1 != match(a:char, '    '.key.' ') && 0 != match(a:char, '  '.key.' ')
+            let a:prechar = '   '
+            let a:lastchar = ' '
+        elseif -1 != match(a:char, ' '.key)
+            let a:prechar = ' '
+            let a:lastchar = ' '
+        endif
+    endfor
+    ""当前行两个连续符号
+    let a:char = getline('.')[col('.')-3].getline('.')[col('.')-2]
+    for key in g:space2
+        if a:char == key
+            if "[ \t]" !~ getline('.')[col('.')-4]
+                return "\<left>\<left>".a:prechar."\<right>\<right> "
+            else
+                return " "
+            endif
+        endif
+    endfor
+    ""当前行一个符号
+    let a:char = getline('.')[col('.')-2]
+    for key in g:space1
+        if a:char == key
+            if "[ \t]" !~ getline('.')[col('.')-3]
+                return "\<left>".a:prechar."\<right> ".a:lastchar
+            elseif '    ' =~ getline('.')[col('.')-3]
+                return "  "
+            endif
+        endif
+    endfor
+    return " "
+endfunction
+""""""""""""""" 在符号两侧自动加入空格
+
+""""""""""""""" 用*查找选中的文本，用#执行方向查找
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+function! s:VSetSearch()
+let temp = @s
+norm! gv"sy
+let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+let @s = temp
+endfunction
+""""""""""""""" 用*查找选中的文本
+
+""""""""""""""" 括号自动补全
+"* 
+"* 出处：https://gist.github.com/hotoo/449512
+"* 
+inoremap ( <c-r>=OpenPair('(')<CR>
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap { <c-r>=OpenPair('{')<CR>
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap [ <c-r>=OpenPair('[')<CR>
+inoremap ] <c-r>=ClosePair(']')<CR>
+" just for xml document, but need not for now.
+"inoremap < <c-r>=OpenPair('<')<CR>
+"inoremap > <c-r>=ClosePair('>')<CR>
+function! OpenPair(char)
+    let PAIRs = {
+                \ '{' : '}',
+                \ '[' : ']',
+                \ '(' : ')',
+                \ '<' : '>'
+                \}
+    if line('$')>5000
+        let line = getline('.')
+
+        let txt = strpart(line, col('.')-1)
+    else
+        let lines = getline(1,line('$'))
+        let line=""
+        for str in lines
+            let line = line . str . "\n"
+        endfor
+
+        let blines = getline(line('.')-1, line("$"))
+        let txt = strpart(getline("."), col('.')-1)
+        for str in blines
+            let txt = txt . str . "\n"
+        endfor
+    endif
+    let oL = len(split(line, a:char, 1))-1
+    let cL = len(split(line, PAIRs[a:char], 1))-1
+
+    let ol = len(split(txt, a:char, 1))-1
+    let cl = len(split(txt, PAIRs[a:char], 1))-1
+
+    if oL>=cL || (oL<cL && ol>=cl)
+        return a:char . PAIRs[a:char] . "\<Left>"
+    else
+        return a:char
+    endif
+endfunction
+function! ClosePair(char)
+    if getline('.')[col('.')-1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+
+inoremap ' <c-r>=CompleteQuote("'")<CR>
+inoremap " <c-r>=CompleteQuote('"')<CR>
+function! CompleteQuote(quote)
+    let ql = len(split(getline('.'), a:quote, 1))-1
+    let slen = len(split(strpart(getline("."), 0, col(".")-1), a:quote, 1))-1
+    let elen = len(split(strpart(getline("."), col(".")-1), a:quote, 1))-1
+    let isBefreQuote = getline('.')[col('.') - 1] == a:quote
+
+    if '"'==a:quote && "vim"==&ft && 0==match(strpart(getline('.'), 0, col('.')-1), "^[\t ]*$")
+        " for vim comment.
+        return a:quote
+    elseif "'"==a:quote && 0==match(getline('.')[col('.')-2], "[a-zA-Z0-9]")
+        " for Name's Blog.
+        return a:quote
+    elseif (ql%2)==1
+        " a:quote length is odd.
+        return a:quote
+    elseif ((slen%2)==1 && (elen%2)==1 && !isBefreQuote) || ((slen%2)==0 && (elen%2)==0)
+        return a:quote . a:quote . "\<Left>"
+    elseif isBefreQuote
+        return "\<Right>"
+    else
+        return a:quote . a:quote . "\<Left>"
+    endif
+endfunction
+""""""""""""""" 括号自动补全
+
 """"""""""""""" 单行配置项
 set listchars=tab:>-,trail:-,extends:#,nbsp:`
 set encoding=utf-8                                                       " 支持UTF-8编码
 let python_highlight_all=1                                               " 启用代码高亮
 syntax on                                                                " 代码语言类型识别
-set nu                                                                   " 显示行号
+set number                                                               " 显示行号
 set mouse=a                                                              " 使用鼠标
 set cursorline                                                           " 高亮当前行
+set cursorcolumn                                                         " 高亮当前列
 set wildmenu                                                             " 显示补全列表
 set wildmode=full                                                        " 显示所有补全项
 set hlsearch                                                             " 高亮查找项
@@ -206,4 +407,9 @@ set omnifunc=syntaxcomplete#Complete                                     " 自�
 nnoremap <Leader>u :GundoToggle<CR>                                      " 快速打开撤销树
 let mapleader='\'                                                        " 设置Leader键
 set smartcase                                                            " 智能大小写忽略
+set autoread                                                             " 自动重加载
+set autowriteall                                                         " 在切换标签卡时自动保存
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>                        " 用Ctrl+L关闭查找高亮
+set incsearch                                                            " 在执行查找前预览第一处匹配
+map <leader><space> :FixWhitespace<cr>                                   " Trailing Whitespace的配置项，使用<leader><space>快速去除行尾空格
 """"""""""""""" 单行配置项
