@@ -94,6 +94,6 @@ export LANG=zh_CN.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cls='clear'
-alias clang='clang++ -std=c++1z -Weverything'
+alias clang='clang++ -std=c++1z -Weverything -Wno-c++98-compat'
 alias clang++='clang++'
 alias clang--='clang'

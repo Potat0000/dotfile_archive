@@ -1,0 +1,7 @@
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+Cpp11BracedListStyle: true
+MaxEmptyLinesToKeep: 3
+SpacesBeforeTrailingComments: 1
+PointerAlignment: Right
+Standard: Cpp11

@@ -19,8 +19,10 @@ Plugin 'plasticboy/vim-markdown'          " Markdown高亮
 Plugin 'nathanaelkane/vim-indent-guides'  " 缩进指示器
 Plugin 'tpope/vim-abolish'                " 增强版替换
 Plugin 'tpope/vim-surround'               " 括号操作
-Plugin 'bronson/vim-trailing-whitespace'  " 行尾空格高亮、快速去除
+Plugin 'rhysd/vim-clang-format'           " 自动格式化代码
 
+"Plugin 'Chiel92/vim-autoformat'          " 自动格式化代码
+"Plugin 'bronson/vim-trailing-whitespace' " 行尾空格高亮、快速去除
 "Plugin 'nvie/vim-flake8'                 " PEP8代码风格检查，与YouCompleteMe功能重复
 "Plugin 'klen/python-mode'                " Python插件，与YouCompleteMe功能重复
 "Plugin 'ervandew/supertab'               " 拓展Tab键的功能，与YouCompleteMe冲突
@@ -102,11 +104,11 @@ nnoremap <space> za     " 使用空格键折叠代码
 """"""""""""""" 启用代码折叠
 
 """"""""""""""" 设置代码缩进、保存
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
-set autoindent
+set cindent
 set fileformat=unix
 """"""""""""""" 设置代码缩进、保存格式
 
@@ -125,6 +127,23 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 """"""""""""""" Python虚拟环境(Virtualenv)支持
+
+""""""""""""""" 自动格式化代码
+noremap <F2> :ClangFormat<CR>
+let g:clang_format#command = "clang-format"
+let g:clang_format#code_style = "google"
+let g:clang_format#auto_format = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+let g:clang_format#auto_formatexpr = 1
+let g:clang_format#style_options = {
+    \ "AlignConsecutiveAssignments": "true",
+    \ "AlignConsecutiveDeclarations": "true",
+    \ "Cpp11BracedListStyle": "true",
+    \ "MaxEmptyLinesToKeep": 3,
+    \ "SpacesBeforeTrailingComments": 1,
+    \ "PointerAlignment": "Right",
+    \ "Standard": "Cpp11" }
+""""""""""""""" 自动格式化代码
 
 """"""""""""""" Syntastic
 "let g:syntastic_check_on_open = 1
@@ -175,7 +194,8 @@ let g:ycm_warning_symbol = '⚠'
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-noremap <F3> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <F3> :YcmForceCompileAndDiagnostics<CR>
+inoremap <F3> <C-O>:YcmForceCompileAndDiagnostics<CR>
 noremap <F4> :YcmDiags<CR>
 let g:ycm_key_list_select_completion = ['<c-j>', '<c-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
@@ -184,13 +204,14 @@ let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
 """"""""""""""" AutoCmd
 "* 
 "* Markdown文件进入插入模式时自动打开中文输入法
-"* 所有文件退出插入模式时自动关闭中文输入法并保存
+"* 所有文件退出插入模式时自动关闭中文输入法
 "* Git Commit描述填写界面自动进入插入模式并切换为中文输入法
 "* 
 if has('unix')
-	autocmd InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif | write
+	autocmd InsertLeave *	if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 	autocmd InsertEnter *.md,COMMIT_EDITMSG	if system('fcitx-remote') != 0 | call system('fcitx-remote -o') | endif
 	autocmd VimEnter COMMIT_EDITMSG	startinsert
+	autocmd CursorHold,CursorHoldI *.cpp,*.c,*.h,*.hpp,*.cc ClangFormat
 endif
 """"""""""""""" AutoCmd
 
@@ -218,7 +239,7 @@ function! Zwc() range
   let output = system("zwc", input)
   echom substitute(output, '\v(^\_s+)|(\_s+$)', '', 'g')
 endfunction
-vnoremap <F3> :call Zwc()<CR>
+"vnoremap <F3> :call Zwc()<CR>
 """"""""""""""" 字数统计
 
 """"""""""""""" 防误操作
@@ -235,7 +256,7 @@ command! Wqa wqa
 "* 出处：http://forum.ubuntu.org.cn/viewtopic.php?t=394843
 "* 
 
-let g:space1 = ['+', '-', '*', '/', '%', '^', '<', '>', '=']
+let g:space1 = ['+', '-', '*', '/', '%', '^', '=']
 let g:space2 = [":=", "==", "!=", "<<", ">>", ">=", "<=", "+=", "-=", "/*=" ,"/=", "&&", "||"]
 
 inoremap <space> <c-r>=SmartSpace()<CR>
@@ -327,7 +348,7 @@ function! OpenPair(char)
                 \ '(' : ')',
                 \ '<' : '>'
                 \}
-    if line('$')>5000
+    if line('$')>500
         let line = getline('.')
 
         let txt = strpart(line, col('.')-1)
@@ -391,6 +412,46 @@ function! CompleteQuote(quote)
 endfunction
 """"""""""""""" 括号自动补全
 
+""""""""""""""" 运行、编译、调试
+noremap <F5> <Esc>:w<CR>:!clear && figlet " *   VIM    C++   *" && figlet " *   Compiler   *" && 
+    \ echo "\n╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                     正在编译, 请稍后……                     │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯\n" && 
+    \ clang++ -std=c++1z -Weverything -Wno-c++98-compat % -o /tmp/vim_out.out && 
+    \ echo "\n╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                         编译完成！                         │" && 
+    \ echo "│                         正在启动……                         │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯\n" && 
+    \ echo "*↓*↓*↓*↓*↓*↓* 程序已启动，请在下方对程序进行测试 *↓*↓*↓*↓*↓*↓*" && 
+    \ echo "──────────────────────────────────────────────────────────────" && 
+    \ /tmp/vim_out.out && 
+    \ echo "──────────────────────────────────────────────────────────────" && 
+    \ echo "*↑*↑*↑* 程序已结束，如有必要，请对上方测试结果进行记录 *↑*↑*↑*" <CR>
+noremap <F7> <Esc>:w<CR>:!clear && figlet " *   VIM    C++   *" && figlet " *   Compiler   *" && 
+    \ echo "\n╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                     正在编译, 请稍后……                     │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯\n" && 
+    \ clang++ -std=c++1z -Weverything -Wno-c++98-compat % && 
+    \ echo "╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                         编译完成！                         │" && 
+    \ echo "│       编译输出文件位于当前文件所在目录, 文件名:a.out       │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯"<CR>
+noremap <C-F5> <Esc>:w<CR>:!clear && figlet " *   VIM    C++   *" && figlet " *   Compiler   *" && 
+    \ echo "\n╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                     正在编译, 请稍后……                     │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯\n" && 
+    \ clang++ -std=c++1z -Weverything -Wno-c++98-compat -g % -o /tmp/vim_out.out && 
+    \ echo "\n╭────────────────────────────────────────────────────────────╮" && 
+    \ echo "│                         编译完成！                         │" && 
+    \ echo "│                       正在启动gdb………                       │" && 
+    \ echo "╰────────────────────────────────────────────────────────────╯\n" && 
+    \ echo "*↓*↓*↓*↓* 调试程序(gdb)已启动,请在下方对程序进行调试 *↓*↓*↓*↓*" && 
+    \ echo "──────────────────────────────────────────────────────────────" && 
+    \ gdb /tmp/vim_out.out && 
+    \ echo "──────────────────────────────────────────────────────────────" && 
+    \ echo "*↑*↑*↑* 调试已结束，如有必要，请对上方调试结果进行记录 *↑*↑*↑*" <CR>
+""""""""""""""" 运行、编译、调试   
+
 """"""""""""""" 单行配置项
 set listchars=tab:>-,trail:-,extends:#,nbsp:`
 set encoding=utf-8                                                       " 支持UTF-8编码
@@ -412,4 +473,5 @@ set autowriteall                                                         " 在�
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>                        " 用Ctrl+L关闭查找高亮
 set incsearch                                                            " 在执行查找前预览第一处匹配
 map <leader><space> :FixWhitespace<cr>                                   " Trailing Whitespace的配置项，使用<leader><space>快速去除行尾空格
+set updatetime=4000                                                      " (单位：ms) 超过指定时间后把交换文件写入磁盘，同时触发 CursorHold 自动命令事件
 """"""""""""""" 单行配置项
