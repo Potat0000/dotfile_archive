@@ -11,3 +11,7 @@
     r = rebase
 [help]
 	autocorrect = 25
+[http]
+	cookiefile = /home/gyj1109/.gitcookies
+[color]
+	ui = auto

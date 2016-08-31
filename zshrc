@@ -65,7 +65,7 @@ plugins=(git z zsh-autosuggestions colored-man-pages colorize cp virtualenv extr
 
 # 用户配置
 
-# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="/home/gyj1109/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -94,6 +94,10 @@ export LANG=zh_CN.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cls='clear'
+
 alias clang='clang++ -std=c++1z -Weverything -Wno-c++98-compat'
 alias clang++='clang++'
 alias clang--='clang'
+
+alias vi='nvim'
+alias vim='nvim'
