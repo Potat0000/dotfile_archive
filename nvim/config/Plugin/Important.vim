@@ -14,3 +14,7 @@ nnoremap <C-P> :bp<CR>
 
 " 增加AirLine主题
 call dein#add('vim-airline/vim-airline-themes')
+
+
+" Tomorrow主题
+call dein#add('chriskempson/vim-tomorrow-theme')

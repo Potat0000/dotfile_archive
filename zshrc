@@ -74,11 +74,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG=zh_CN.UTF-8
 
 # 本地和远程会话的默认编辑器
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='vim'
+fi
 
 # 编译标志
 # export ARCHFLAGS="-arch x86_64"
@@ -99,5 +99,5 @@ alias clang='clang++ -std=c++1z -Weverything -Wno-c++98-compat'
 alias clang++='clang++'
 alias clang--='clang'
 
-alias vi='nvim'
+#alias vi='nvim'
 alias vim='nvim'

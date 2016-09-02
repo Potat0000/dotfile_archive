@@ -15,3 +15,5 @@
 	cookiefile = /home/gyj1109/.gitcookies
 [color]
 	ui = auto
+[core]
+	editor = nvim

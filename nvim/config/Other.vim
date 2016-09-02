@@ -32,11 +32,9 @@ set cursorcolumn                                                         " 高�
 set wildmode=full                                                        " 显示所有补全项
 set omnifunc=syntaxcomplete#Complete                                     " 自动补全
 set smartcase                                                            " 智能大小写忽略
-set autowriteall                                                         " 在切换标签卡时自动保存
 set updatetime=4000                                                      " (单位：ms) 超过指定时间后把交换文件写入磁盘，同时触发 CursorHold 自动命令事件
 set splitright                                                           " 在右边打开新的窗口（垂直分割）
 set splitbelow                                                           " 在下边打开新的窗口（水平分割）
 set noshowmode                                                           " 模式切换（在状态栏左下方）
 set showcmd                                                              " 按键提示（在状态栏右下方）
-set sidescroll=1 sidescrolloff=3                                         " 让水平滚动更加自然
 """"""""""""""" 单行配置项

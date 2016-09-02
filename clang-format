@@ -1,7 +1,14 @@
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
+BasedOnStyle: Google
 Cpp11BracedListStyle: true
+IndentCaseLabels: true
+IndentWidth: 4
 MaxEmptyLinesToKeep: 3
-SpacesBeforeTrailingComments: 1
 PointerAlignment: Right
+SpaceAfterCStyleCast: true
+SpacesBeforeTrailingComments: 1
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
 Standard: Cpp11
