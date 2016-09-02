@@ -1,9 +1,9 @@
 " 增加C++11/C++14/boost的语法高亮
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+call dein#add('octol/vim-cpp-enhanced-highlight', { 'on_ft': ['c', 'cpp'] })
 
 
 " Markdown高亮
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+call dein#add('plasticboy/vim-markdown', {'on_ft': 'markdown'})
 
 let g:vim_markdown_toc_autofit      = 1
 let g:vim_markdown_frontmatter      = 1
@@ -13,4 +13,4 @@ let g:vim_markdown_folding_disabled = 1
 
 
 " Python自动缩进
-Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
+call dein#add('vim-scripts/indentpython.vim', {'on_ft': 'python'})

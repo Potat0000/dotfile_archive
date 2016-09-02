@@ -1,6 +1,0 @@
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/在符号两侧自动加空格(半自动).vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/括号自动补全.vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/编译运行调试.vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/拓展visual模式下的查找.vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/Python虚拟环境(Virtualenv)支持.vim'
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/拓展功能/字数统计.vim'

@@ -1,9 +1,9 @@
 " 增强 Unicode 的使用
-Plug 'chrisbra/unicode.vim'
+call dein#add('chrisbra/unicode.vim')
 
 
 " 状态栏
-Plug 'vim-airline/vim-airline'
+call dein#add('vim-airline/vim-airline')
 
 let g:airline_powerline_fonts = 1   
 let g:airline#extensions#tabline#enabled = 1
@@ -13,6 +13,4 @@ nnoremap <C-P> :bp<CR>
 
 
 " 增加AirLine主题
-Plug 'vim-airline/vim-airline-themes'
-
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/.theme.vim'
+call dein#add('vim-airline/vim-airline-themes')

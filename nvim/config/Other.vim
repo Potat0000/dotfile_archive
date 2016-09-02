@@ -26,6 +26,7 @@ set foldmethod=syntax                                                    " 启�
 set foldlevelstart=99                                                    " 99层以上的代码自动折叠（即不自动折叠代码，因为达不到99层）
 syntax on                                                                " 代码语言类型识别
 set number                                                               " 显示行号
+set relativenumber                                                       " 显示相对行号
 set cursorline                                                           " 高亮当前行
 set cursorcolumn                                                         " 高亮当前列
 set wildmode=full                                                        " 显示所有补全项

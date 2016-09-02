@@ -1,9 +1,9 @@
 " Ctrl-P 超级搜索
-Plug 'kien/ctrlp.vim', {'on': '<Plug><C-P>'}
+call dein#add('kien/ctrlp.vim', {'on_map': '<Plug><C-P>'})
 
 
 " 使用ag加快CtrlP的查找速度
-Plug 'rking/ag.vim', {'on': '<Plug><C-P>'}
+call dein#add('rking/ag.vim', {'on_map': '<Plug><C-P>'})
 
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -g "" --nocolor --nogroup --follow --hidden --smart-case'
@@ -13,31 +13,31 @@ endif
 
 
 " 为CtrlP插件拓展功能
-"Plug 'sgur/ctrlp-extensions.vim', {'on': '<Plug><C-P>'}
+"call dein#add('sgur/ctrlp-extensions.vim', {'on_map': '<Plug><C-P>'})
 
 
 " 撤销树
-Plug 'sjl/gundo.vim', { 'on': '<Plug><Leader>u' }
+call dein#add('sjl/gundo.vim', { 'on_map': '<Plug><Leader>u' })
 
 
 " 提供免干扰的写作环境
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+call dein#add('junegunn/goyo.vim', { 'on_cmd': 'Goyo' })
 
 
 " 配合 Goyo 提供行聚焦
-Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
+call dein#add('junegunn/limelight.vim', { 'on_cmd': 'Goyo' })
 
 
 " 快速移动
-Plug 'easymotion/vim-easymotion', { 'on': ['<Plug><Leader><Leader>f', '<Plug><Leader><Leader>w'] }
+call dein#add('easymotion/vim-easymotion', { 'on_map': ['<Plug><Leader><Leader>f', '<Plug><Leader><Leader>w'] })
 
 
 " 新建文件时自动创建不存在的文件夹
-Plug 'pbrisbin/vim-mkdir'
+call dein#add('pbrisbin/vim-mkdir', { 'on_cmd': 'write' })
 
 
 " 目录树
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+call dein#add('scrooloose/nerdtree', { 'on_cmd': 'NERDTreeToggle' })
 
 let NERDChristmasTree=0
 let NERDTreeWinSize=35

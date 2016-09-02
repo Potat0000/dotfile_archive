@@ -1,0 +1,6 @@
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Add_Space_between_Symbols.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Automatic_Parentheses.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Compile_Run_Debug.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Search_On_Visual-Mode.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Sopprt_For_Python_Virtualenv.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/Extend/Word_Count.vim'
