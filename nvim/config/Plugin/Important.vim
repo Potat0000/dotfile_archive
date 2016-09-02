@@ -16,5 +16,7 @@ nnoremap <C-P> :bp<CR>
 call dein#add('vim-airline/vim-airline-themes')
 
 
-" Tomorrow主题
+" 主题
 call dein#add('chriskempson/vim-tomorrow-theme')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('tomasr/molokai')

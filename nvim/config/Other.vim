@@ -16,7 +16,7 @@ set fileformat=unix
 
 """"""""""""""" NeoVim 专用选项
 if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1                                    " 允许真彩显示
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 0                                    " 允许真彩显示
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1                                  " 允许光标变化
 endif
 """"""""""""""" NeoVim 专用选项
@@ -37,4 +37,5 @@ set splitright                                                           " 在�
 set splitbelow                                                           " 在下边打开新的窗口（水平分割）
 set noshowmode                                                           " 模式切换（在状态栏左下方）
 set showcmd                                                              " 按键提示（在状态栏右下方）
+set t_Co=256
 """"""""""""""" 单行配置项

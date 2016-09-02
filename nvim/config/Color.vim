@@ -1,4 +1,6 @@
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/../colors/Tomorrow.vim'
-colorscheme Tomorrow
+"execute 'source' fnamemodify(expand('<sfile>'), ':h').'/../colors/Tomorrow.vim'
 
-let g:airline_theme="tomorrow"
+colorscheme solarized
+set background=dark
+
+let g:airline_theme="solarized"
