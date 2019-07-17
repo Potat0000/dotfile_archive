@@ -1,3 +1,5 @@
+ZSH_DISABLE_COMPFIX=true
+
 # oh-my-zsh安装目录
 export ZSH=/home/gyj1109/.oh-my-zsh
 
@@ -6,20 +8,19 @@ zstyle ':completion:*' rehash true
 setopt no_nomatch
 
 # 主题
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER=gyj1109
 export TERM="xterm-256color"
 
-# powerlevel9k主题设置
+# powerlevel10k主题设置
+POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0.25
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_HOME_ICON=''
 POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_FOLDER_ICON=''
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_HIDE_BRANCH_ICON=true
-#POWERLEVEL9K_SHOW_CHANGESET=true
-#POWERLEVEL9K_CHANGESET_HASH_LENGTH=4
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir_writable dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv)
 
 # 大小写敏感
@@ -59,16 +60,14 @@ HIST_STAMPS="yyyy-mm-dd"
 # 插件（默认插件在$ZSH/plugins目录中）
 # 自定义插件请放入$ZSH_CUSTOM/plugins/，子文件夹内的插件会自动搜索，所以可以用文件夹整理插件
 # 请谨慎添加插件，添加过多的插件会拖慢启动、运行速度
-plugins=(git z zsh-autosuggestions colored-man-pages colorize virtualenv extract web-search sudo zsh-syntax-highlighting virtualenv)
+plugins=(colored-man-pages colorize extract fz git sudo virtualenv z zsh-autosuggestions zsh-interactive-cd zsh-syntax-highlighting)
 
 
 
 # 用户配置
 
-export PATH="/home/gyj1109/bin:/home/gyj1109/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-export MANPATH="/home/gyj1109/Documents/man:/usr/local/man:$MANPATH"
-
-export ZYPP_ARIA2C=1
+export PATH="/home/gyj1109/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+#export MANPATH="/home/gyj1109/Documents/man:/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -82,27 +81,24 @@ else
   export EDITOR='vim'
 fi
 
-# 编译标志
-# export ARCHFLAGS="-arch x86_64"
-
 # ssh私钥位置
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/Gyj1109 - ThinkPad X1/id_rsa"
+
+# 应用 theFuck
+eval $(thefuck --alias)
 
 # 自定义别名，在此定义不会覆盖在oh-my-zsh的库，插件和主题中提供的别名。
 # 别名的定义放在这里可以生效，但是我们建议在ZSH_CUSTOM文件夹中定义的别名。
 # 运行`alias`查看所有默认别名。
 #
 # 别名定义示例
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cls='clear'
 alias ls='ls --color=auto'
+alias la='ls -a'
+alias ll='ls -al'
 alias pip='pip3'
 alias mkvirenv='virtualenv --system-site-packages'
 
-source /home/gyj1109/.virtualenv-auto-activate.sh
-_virtualenv_auto_activate
-function chpwd(){
-    emulate -L zsh
-    _virtualenv_auto_activate
-}
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /home/gyj1109/.auto-virtualenv
